@@ -1,13 +1,20 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { LogBox } from 'react-native';
 
-// Import your screens
+
 import WelcomeScreen from './screens/WelcomeScreen';
 import SignUpLoginScreen from './screens/SignUpLoginScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import MainScreen from './screens/MainScreen';
+
+LogBox.ignoreLogs([
+  'props.pointerEvents is deprecated', 
+  'shadow* style props are deprecated',
+  'accessibilityRole is deprecated'
+]);
 
 const Stack = createNativeStackNavigator();
 

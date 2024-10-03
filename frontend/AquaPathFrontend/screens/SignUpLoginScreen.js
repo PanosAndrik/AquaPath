@@ -5,7 +5,7 @@ export default function SignUpLoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       
-      {/* Sign Up Button */}
+      {}
       <View style={styles.signupContainer}>
         <Button
           title="SIGN UP"
@@ -13,7 +13,7 @@ export default function SignUpLoginScreen({ navigation }) {
         />
       </View>
 
-      {/* Instruction Text and Login Button */}
+      {}
       <View style={styles.loginContainer}>
         <Text style={styles.text}>If you are already registered please:</Text>
         <Button
@@ -22,7 +22,7 @@ export default function SignUpLoginScreen({ navigation }) {
         />
       </View>
 
-      {/* Image at the bottom */}
+      {}
       <Image
         source={require('../assets/images/loginsignup.png')}
         style={styles.image}
@@ -35,30 +35,30 @@ export default function SignUpLoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between', // Distribute content vertically
+    justifyContent: 'space-between', 
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#e0f7fa', // Light blue background
+    backgroundColor: '#e0f7fa', 
   },
   signupContainer: {
-    marginTop: 50, // Move the Sign Up button higher
+    marginTop: 50, 
     width: 200,
   },
   loginContainer: {
     alignItems: 'center',
-    marginBottom: 20, // Create space between login button and image
+    marginBottom: 20,
     width: 200,
   },
   text: {
-    marginBottom: 10, // Space between text and login button
+    marginBottom: 10,
     fontSize: 16,
     color: 'gray',
     textAlign: "center"
   },
   image: {
-    width: 200, // Adjust based on your image size
-    height: 100, // Adjust based on your image size
+    width: 200, 
+    height: 100, 
     resizeMode: 'contain',
-    marginBottom: 20, // To keep the image at the bottom
+    marginBottom: 20, 
   },
 });
