@@ -6,10 +6,21 @@ export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  // Basic email validation regex
+    return emailRegex.test(email);
+  };
+
   const handleSignUp = async () => {
     console.log('Name:', name);  // Log name - debug
     console.log('Email:', email);  // Log email - debug
     console.log('Password:', password);  // Log password - debug
+
+    if (!isValidEmail(email)) {
+      Alert.alert('Invalid Email', 'Please enter a valid email address');
+      return;
+    }
 
     try {
       const response = await fetch('http://10.0.3.2:5000/api/add-user', {
