@@ -7,9 +7,9 @@ export default function SignUpScreen({ navigation }) {
   const [password, setPassword] = useState('');
 
   const handleSignUp = async () => {
-    console.log('Name:', name);  // Log name for debugging
-    console.log('Email:', email);  // Log email for debugging
-    console.log('Password:', password);  // Log password for debugging
+    console.log('Name:', name);  // Log name - debug
+    console.log('Email:', email);  // Log email - debug
+    console.log('Password:', password);  // Log password - debug
 
     try {
       const response = await fetch('http://10.0.3.2:5000/api/add-user', {
@@ -18,7 +18,7 @@ export default function SignUpScreen({ navigation }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name,  // Include name in the request body
+          name,  
           email,
           password,
         }),
@@ -28,7 +28,7 @@ export default function SignUpScreen({ navigation }) {
       console.log('Response:', responseText);
 
       if (!response.ok) {
-        Alert.alert('Error', responseText);  // Show error message
+        Alert.alert('Error', responseText);  // Show error message debug
         return;
       }
 
@@ -44,7 +44,7 @@ export default function SignUpScreen({ navigation }) {
     <View style={styles.container}>
       <Text>Sign Up</Text>
       <TextInput
-        placeholder="Name"  // Input for name
+        placeholder="Name" 
         value={name}
         onChangeText={setName}
         style={styles.input}
