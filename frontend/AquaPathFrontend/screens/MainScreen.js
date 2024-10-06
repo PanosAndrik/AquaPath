@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 
 export default function MainScreen() {
   const [pyramidFill, setPyramidFill] = useState(0);
 
   const handleAddWater = () => {
     if (pyramidFill < 100) {
-      setPyramidFill(pyramidFill + 10); 
+      const newFill = pyramidFill + 10;
+      setPyramidFill(newFill);
+
+      // Check if the pyramid is now 100% filled
+      if (newFill === 100) {
+        Alert.alert('Congratulations!', 'You are hydrated for the day!');
+      }
     }
   };
 
   return (
     <View style={styles.container}>
-      {}
       <View style={styles.calendarContainer}>
         <Text>Calendar</Text>
       </View>
 
-      {}
       <Text style={styles.fillText}>{pyramidFill}% Filled</Text>
 
-      {}
       <View style={styles.pyramidContainer}>
         <Image
           source={require('../assets/images/pyramid.png')}
@@ -29,10 +32,9 @@ export default function MainScreen() {
         <View style={[styles.fillOverlay, { height: `${pyramidFill}%` }]} />
       </View>
 
-      {/* Custom "+" Button */}
       <TouchableOpacity style={styles.addButton} onPress={handleAddWater}>
         <Image
-          source={require('../assets/images/plusicon.png')}  
+          source={require('../assets/images/plusicon.png')}
           style={styles.addButtonImage}
         />
       </TouchableOpacity>
@@ -96,8 +98,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   addGlass: {
-    fontStyle: "italic",
+    fontStyle: 'italic',
     top: 80,
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });
