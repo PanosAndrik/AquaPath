@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 
-export default function MainScreen() {
+export default function MainScreen({ navigation }) {
   const [pyramidFill, setPyramidFill] = useState(0);
 
   const handleAddWater = () => {
@@ -9,7 +9,6 @@ export default function MainScreen() {
       const newFill = pyramidFill + 10;
       setPyramidFill(newFill);
 
-      // Check if the pyramid is now 100% filled
       if (newFill === 100) {
         Alert.alert('Congratulations!', 'You are hydrated for the day!');
       }
@@ -18,9 +17,17 @@ export default function MainScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.calendarContainer}>
-        <Text>Calendar</Text>
-      </View>
+      {/* Calendar Button */}
+      <TouchableOpacity
+        style={styles.calendarContainer}
+        onPress={() => navigation.navigate('Calendar')}
+      >
+        <Image
+          source={require('../assets/images/calendar.png')}
+          style={styles.calendarImage}
+        />
+        <Text style={styles.calendarText}>Calendar</Text>
+      </TouchableOpacity>
 
       <Text style={styles.fillText}>{pyramidFill}% Filled</Text>
 
@@ -52,7 +59,18 @@ const styles = StyleSheet.create({
   calendarContainer: {
     position: 'absolute',
     top: 50,
-    left: 20,
+    alignItems: 'center', 
+    justifyContent: 'center',
+  },
+  calendarImage: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+  },
+  calendarText: {
+    fontSize: 16,
+    marginTop: 5,
+    textAlign: 'center',
   },
   pyramidContainer: {
     width: 200,

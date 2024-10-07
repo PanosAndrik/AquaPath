@@ -9,6 +9,7 @@ import SignUpLoginScreen from './screens/SignUpLoginScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import MainScreen from './screens/MainScreen';
+import CalendarScreen from './screens/CalendarScreen';
 
 LogBox.ignoreLogs([
   'props.pointerEvents is deprecated', 
@@ -27,6 +28,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Main" component={MainScreen} />
+        <Stack.Screen name="Calendar" component={CalendarScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
