@@ -1,0 +1,65 @@
+[33mcommit bdfd97550c21a50b70ea4aa168776377a3874d3e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: PanosAndrik <katholoucrew@gmail.com>
+Date:   Mon Oct 7 12:22:22 2024 +0300
+
+    Main screen okay / Primitive calendar screen
+
+[33mcommit 51334d233869dc013c0a65410862101cdea4f4dd[m
+Author: PanosAndrik <katholoucrew@gmail.com>
+Date:   Sun Oct 6 11:32:49 2024 +0300
+
+    100% filled, congratulations message
+
+[33mcommit bca0b36d51be2a7aa782394c6ef088c35fd3248b[m
+Author: PanosAndrik <katholoucrew@gmail.com>
+Date:   Sun Oct 6 11:28:11 2024 +0300
+
+    main screen half ready
+
+[33mcommit 44ee3f5b9af2edad123a9ebd2e7d7aa795e700a1[m
+Author: PanosAndrik <katholoucrew@gmail.com>
+Date:   Fri Oct 4 08:28:49 2024 +0300
+
+    email format check ready frontend only
+
+[33mcommit a2a57a44b382f97a9ec112053dc1c2871de550f0[m
+Author: PanosAndrik <katholoucrew@gmail.com>
+Date:   Fri Oct 4 07:44:31 2024 +0300
+
+    signup , login screen working
+
+[33mcommit aa590c8515742e4cb35f524037feae795bc8e0a9[m
+Author: PanosAndrik <katholoucrew@gmail.com>
+Date:   Thu Oct 3 18:28:35 2024 +0300
+
+    Sign up works
+
+[33mcommit c18d3b4b0f4d33e0a06d1b463a9c7d18520edb3c[m
+Author: PanosAndrik <katholoucrew@gmail.com>
+Date:   Wed Oct 2 15:26:38 2024 +0300
+
+    all screens except main are ready
+
+[33mcommit b69fdd7ecb516a120bba38b77b1525d3dee1fc79[m
+Author: PanosAndrik <katholoucrew@gmail.com>
+Date:   Wed Oct 2 15:21:59 2024 +0300
+
+    working frontend / welcome + singuplogin screens ready
+
+[33mcommit f2741ce06e7a7f93be7ed7091f7cad8eb07356a5[m
+Author: PanosAndrik <katholoucrew@gmail.com>
+Date:   Tue Oct 1 19:23:20 2024 +0300
+
+    2nd
+
+[33mcommit eb8a5bc175df474596de87558941ba3520e3d27e[m
+Author: PanosAndrik <katholoucrew@gmail.com>
+Date:   Mon Sep 30 18:58:18 2024 +0300
+
+    1st commit
+
+[33mcommit a13cbcdf59fad496169f138e53310f9aea9d477c[m
+Author: Panagiotis Andrikopoulos <152204769+PanosAndrik@users.noreply.github.com>
+Date:   Mon Sep 30 18:41:25 2024 +0300
+
+    Initial commit

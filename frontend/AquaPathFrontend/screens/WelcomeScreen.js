@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 
+console.log("hi");
+
 export default function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
