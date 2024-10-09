@@ -1,8 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function MainScreen({ navigation }) {
+export default function MainScreen() {
   const [pyramidFill, setPyramidFill] = useState(0);
+  const navigation = useNavigation();
+
+  // Log out handler
+  const handleLogout = () => {
+    Alert.alert('Log Out', 'Are you sure you want to log out?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Log Out', onPress: () => {
+          // Clear session or token here if needed
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'SignUpLogin' }],
+          });
+      }},
+    ]);
+  };
+
+  
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerBackVisible: false,
+      headerLeft: () => null, 
+      headerRight: () => (
+        <TouchableOpacity onPress={handleLogout}>
+          <Text style={styles.logoutText}>Log Out</Text>
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
 
   const handleAddWater = () => {
     if (pyramidFill < 100) {
@@ -117,7 +146,13 @@ const styles = StyleSheet.create({
   },
   addGlass: {
     fontStyle: 'italic',
-    top: 80,
+    top: 50,
+    fontWeight: 'bold',
+  },
+  logoutText: {
+    marginRight: 10,
+    color: 'red',
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });
