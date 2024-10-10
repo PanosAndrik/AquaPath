@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const userRouter = require('./routes/user');
 const updateDistanceRoute = require('./routes/updateDistance');
+const hydrationRoutes = require('./routes/hydration');
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
 // Use the routes
 app.use('/api', updateDistanceRoute);
 app.use('/api', userRouter); 
+app.use('/api', hydrationRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
