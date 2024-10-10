@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -18,21 +19,17 @@ export default function LoginScreen({ navigation }) {
         }),
       });
   
-      const responseText = await response.text();  
-      console.log('Response Text:', responseText);  
+      const data = await response.json();
+      console.log('Login response:', data);
   
-      
-      if (response.headers.get('content-type')?.includes('application/json')) {
-        const data = JSON.parse(responseText);  
-        if (response.ok) {
-          Alert.alert('Success', 'Logged in successfully');
-          navigation.navigate('Main');
-        } else {
-          Alert.alert('Error', data.message || 'Login failed');
-        }
+      if (response.ok) {
+        // Store the token
+        await AsyncStorage.setItem('token', data.token);
+        console.log('Token stored successfully');
+        Alert.alert('Success', 'Logged in successfully');
+        navigation.navigate('Main');
       } else {
-        
-        Alert.alert('Error', responseText);
+        Alert.alert('Error', data.message || 'Login failed');
       }
     } catch (error) {
       Alert.alert('Error', 'Could not connect to the server');

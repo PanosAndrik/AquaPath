@@ -1,30 +1,26 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function MainScreen() {
   const [pyramidFill, setPyramidFill] = useState(0);
   const navigation = useNavigation();
 
-  // Log out handler
-  const handleLogout = () => {
-    Alert.alert('Log Out', 'Are you sure you want to log out?', [
-      { text: 'Cancel', style: 'cancel' },
-      { text: 'Log Out', onPress: () => {
-          // Clear session or token here if needed
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'SignUpLogin' }],
-          });
-      }},
-    ]);
-  };
+  useEffect(() => {
+    const loadPyramidFill = async () => {
+      const savedFill = await AsyncStorage.getItem('pyramidFill');
+      if (savedFill !== null) {
+        setPyramidFill(parseInt(savedFill));
+      }
+    };
+    loadPyramidFill();
+  }, []);
 
-  
   useLayoutEffect(() => {
     navigation.setOptions({
       headerBackVisible: false,
-      headerLeft: () => null, 
+      headerLeft: () => null,
       headerRight: () => (
         <TouchableOpacity onPress={handleLogout}>
           <Text style={styles.logoutText}>Log Out</Text>
@@ -33,20 +29,65 @@ export default function MainScreen() {
     });
   }, [navigation]);
 
-  const handleAddWater = () => {
+  const handleLogout = async () => {
+    Alert.alert('Log Out', 'Are you sure you want to log out?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Log Out', onPress: async () => {
+        await AsyncStorage.removeItem('token');
+        await AsyncStorage.removeItem('pyramidFill');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'SignUpLogin' }],
+        });
+      }},
+    ]);
+  };
+
+  const handleAddWater = async () => {
     if (pyramidFill < 100) {
       const newFill = pyramidFill + 10;
       setPyramidFill(newFill);
+      await AsyncStorage.setItem('pyramidFill', newFill.toString());
 
       if (newFill === 100) {
         Alert.alert('Congratulations!', 'You are hydrated for the day!');
+        try {
+          const token = await AsyncStorage.getItem('token');
+          if (!token) {
+            Alert.alert('Session Expired', 'Please log in again.');
+            navigation.navigate('Login');
+            return;
+          }
+
+          const response = await fetch('http://10.0.3.2:5000/api/update-hydration', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              date: new Date().toISOString(),
+              isHydrated: true
+            }),
+          });
+          
+          if (!response.ok) {
+            throw new Error('Failed to update hydration status');
+          }
+          
+          // Reset pyramid fill for the next day
+          setPyramidFill(0);
+          await AsyncStorage.setItem('pyramidFill', '0');
+        } catch (error) {
+          console.error('Error updating hydration status:', error);
+          Alert.alert('Error', 'Failed to update hydration status. Please try again.');
+        }
       }
     }
   };
 
   return (
     <View style={styles.container}>
-      {/* Calendar Button */}
       <TouchableOpacity
         style={styles.calendarContainer}
         onPress={() => navigation.navigate('Calendar')}
@@ -78,6 +119,7 @@ export default function MainScreen() {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -146,7 +188,7 @@ const styles = StyleSheet.create({
   },
   addGlass: {
     fontStyle: 'italic',
-    top: 50,
+    top: 10,
     fontWeight: 'bold',
   },
   logoutText: {
