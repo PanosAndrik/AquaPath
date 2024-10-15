@@ -2,11 +2,13 @@ import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
 
 export default function MainScreen() {
   const [pyramidFill, setPyramidFill] = useState(0);
   const navigation = useNavigation();
 
+  
   useEffect(() => {
     const loadPyramidFill = async () => {
       const savedFill = await AsyncStorage.getItem('pyramidFill');
@@ -15,8 +17,24 @@ export default function MainScreen() {
       }
     };
     loadPyramidFill();
+
+    
+    const scheduleNotification = async () => {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: 'Hydration Reminder',
+          body: 'Please have a glass of water!',
+        },
+        trigger: {
+          seconds: 10800,
+          repeats: true,
+        },
+      });
+    };
+    scheduleNotification();
   }, []);
 
+ 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerBackVisible: false,
@@ -29,6 +47,7 @@ export default function MainScreen() {
     });
   }, [navigation]);
 
+ 
   const handleLogout = async () => {
     Alert.alert('Log Out', 'Are you sure you want to log out?', [
       { text: 'Cancel', style: 'cancel' },
@@ -43,6 +62,7 @@ export default function MainScreen() {
     ]);
   };
 
+  
   const handleAddWater = async () => {
     if (pyramidFill < 100) {
       const newFill = pyramidFill + 10;
@@ -70,12 +90,11 @@ export default function MainScreen() {
               isHydrated: true
             }),
           });
-          
+
           if (!response.ok) {
             throw new Error('Failed to update hydration status');
           }
-          
-          // Reset pyramid fill for the next day
+
           setPyramidFill(0);
           await AsyncStorage.setItem('pyramidFill', '0');
         } catch (error) {
@@ -120,7 +139,6 @@ export default function MainScreen() {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -132,6 +150,7 @@ const styles = StyleSheet.create({
     top: 50,
     alignItems: 'center', 
     justifyContent: 'center',
+    flexDirection: 'row',  
   },
   calendarImage: {
     width: 100,
@@ -140,8 +159,8 @@ const styles = StyleSheet.create({
   },
   calendarText: {
     fontSize: 16,
-    marginTop: 5,
-    textAlign: 'center',
+    marginLeft: 10,
+    fontWeight: 'bold',
   },
   pyramidContainer: {
     width: 200,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation }) {
@@ -36,17 +36,21 @@ export default function LoginScreen({ navigation }) {
       console.log('Network Error:', error);
     }
   };
-  
 
   return (
     <View style={styles.container}>
-      <Text>Login</Text>
+      {/* Welcome Back Text */}
+      <Text style={styles.title}>Welcome!</Text>
+
+      {/* Email Input */}
       <TextInput
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
         style={styles.input}
       />
+
+      {/* Password Input */}
       <TextInput
         placeholder="Password"
         value={password}
@@ -54,7 +58,11 @@ export default function LoginScreen({ navigation }) {
         secureTextEntry
         style={styles.input}
       />
-      <Button title="Login" onPress={handleLogin} />
+
+      {/* Styled Login Button */}
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <Text style={styles.loginButtonText}>LOGIN</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -64,11 +72,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
+    alignItems: 'center',  
+  },
+  title: {
+    fontSize: 28,  
+    color: 'red',  
+    fontWeight: 'bold', 
+    marginBottom: 20, 
+    textAlign: 'center',  
   },
   input: {
     borderBottomWidth: 1,
     marginBottom: 16,
     padding: 8,
     width: '100%',
+  },
+  loginButton: {
+    backgroundColor: '#1E90FF',  
+    padding: 15,
+    borderRadius: 10,
+    width: '40%',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  loginButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });

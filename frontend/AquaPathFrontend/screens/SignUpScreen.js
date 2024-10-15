@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignUpScreen({ navigation }) {
   const [name, setName] = useState('');  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
     return emailRegex.test(email);
   };
 
   const handleSignUp = async () => {
-    console.log('Name:', name);  // Log name - debug
-    console.log('Email:', email);  // Log email - debug
-    console.log('Password:', password);  // Log password - debug
+    console.log('Name:', name);  
+    console.log('Email:', email);  
+    console.log('Password:', password);  
 
     if (!isValidEmail(email)) {
       Alert.alert('Invalid Email', 'Please enter a valid email address');
@@ -39,7 +39,7 @@ export default function SignUpScreen({ navigation }) {
       console.log('Response:', responseText);
 
       if (!response.ok) {
-        Alert.alert('Error', responseText);  // Show error message debug
+        Alert.alert('Error', responseText);  
         return;
       }
 
@@ -47,13 +47,13 @@ export default function SignUpScreen({ navigation }) {
       navigation.navigate('Login');
     } catch (error) {
       Alert.alert('Error', 'Could not connect to the server');
-      console.log('Network Error:', error);  // Log network error
+      console.log('Network Error:', error);  
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text>Sign Up</Text>
+      <Text style={styles.title}>Let's get you all signed up!</Text>
       <TextInput
         placeholder="Name" 
         value={name}
@@ -73,7 +73,11 @@ export default function SignUpScreen({ navigation }) {
         secureTextEntry
         style={styles.input}
       />
-      <Button title="Sign Up" onPress={handleSignUp} />
+
+      {/* Custom Button */}
+      <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -82,12 +86,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+    color: 'red', 
   },
   input: {
     borderBottomWidth: 1,
     marginBottom: 16,
     padding: 8,
     width: '100%',
+  },
+  button: {
+    backgroundColor: '#1E90FF', 
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 20,
+    width: '40%', 
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
