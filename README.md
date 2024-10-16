@@ -2,4 +2,5 @@
 
 AquaPath is a mobile app designed to help users stay hydrated by tracking their daily water intake and sending periodic notifications as reminders.
 
-![image](https://github.com/user-attachments/assets/7f054078-553f-41ca-9d3a-755766968c86)
+
+![pyramid](https://github.com/user-attachments/assets/89a92f6e-4b84-4719-8ff7-269153939ce8)
